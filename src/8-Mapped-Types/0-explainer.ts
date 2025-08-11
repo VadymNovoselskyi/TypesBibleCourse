@@ -171,9 +171,9 @@ type GetValue<T> = T extends { value: infer V } ? V : never;
 
 type FTPTest = FormToPayload<UserForm>;
 
-//type T = { readonly a: string; b?: number };
+type T = { readonly a: string; b?: number };
 
-//type U = { [K in keyof T]: 42 };
+type U = { [K in keyof T]: 42 };
 // { readonly a: 42; b?: 42 };
 
 type U2 = { [K in keyof T | "c"]: 42 };
@@ -206,12 +206,12 @@ type ToGetters<Obj> = {
 
 type TGTest = ToGetters<{ id: number; name: string }>;
 
-// type SnakeToCamel<Str> =
-//   Str extends `${infer First}_${infer Rest}`
-//    Split on underscores 👆
-//     ? `${First}${SnakeToCamel<Capitalize<Rest>>}`
-//      Capitalize each word 👆
-//     : Str;
+type SnakeToCamel<Str> =
+  Str extends `${infer First}_${infer Rest}`
+  //  Split on underscores 👆
+    ? `${First}${SnakeToCamel<Capitalize<Rest>>}`
+    //  Capitalize each word 👆
+    : Str;
 
 type Camelize<T> = {
   [K in keyof T as SnakeToCamel<K>]: T[K];
@@ -271,7 +271,7 @@ const user_test = Object.fromEntries(entries);
 type E = Entries<{ name: "Jack"; age: 32 }>;
 // => ["name", "Jack"] | ["age", 32]
 
-type UserTest = FromEntries<E>;
+type UserTest = FromEntries2<E>;
 // => { name: "Jack", age: 32 }
 
 //type ValueOf<T> = T[keyof T];

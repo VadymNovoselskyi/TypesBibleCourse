@@ -5,15 +5,9 @@ import { Equal, Equalish, Expect } from "..";
  * a union of [key, value] entries into an object type.
  */
 namespace fromEntries {
-  type UnionToIntersection<U> = (U extends any ? (x: U) => void : never) extends (
-    x: infer I
-  ) => void
-    ? I
-    : never;
-
-  type FromEntries<Entries extends [PropertyKey, any]> = UnionToIntersection<
-    Entries extends [infer Key extends string, infer Value] ? { [K in Key]: Value } : never
-  > & {};
+  type FromEntries<Entries extends [PropertyKey, any]> = {
+    [Entry in Entries as Entry[0]]: Entry[1];
+  };
 
   type res1 = FromEntries<["a", string]>;
   type test1 = Expect<Equal<res1, { a: string }>>;
