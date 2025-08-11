@@ -22,15 +22,15 @@ function getPermissions(
         approvals: [],
         tasks: [],
         actions: [],
-      };
+      } satisfies ManagerPermissions;
     case "employee":
       return {
         tasks: [],
         actions: [],
-      };
+      } satisfies EmployeePermissions;
     default:
       return {
         actions: [],
-      };
+      } satisfies CustomerPermissions;
   }
 }
